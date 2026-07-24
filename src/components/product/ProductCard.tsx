@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import type { Product } from '../../types/product';
 import { useBundleStore } from '../../store/useBundleStore';
 import { ProductImage } from './ProductImage';
@@ -10,6 +10,7 @@ import { Price } from '../ui/Price';
 import { Typography } from '../ui/Typography';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { cn } from '../../lib/utils';
+import { useIsXlScreen } from '../../hooks/useIsXlScreen';
 
 interface ProductCardProps {
   product: Product;
@@ -18,14 +19,7 @@ interface ProductCardProps {
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) => {
   const [showFullDesc, setShowFullDesc] = useState(false);
-  const [isXl, setIsXl] = useState(() => window.matchMedia('(min-width: 1280px)').matches);
-
-  useEffect(() => {
-    const mql = window.matchMedia('(min-width: 1280px)');
-    const handler = (e: MediaQueryListEvent) => setIsXl(e.matches);
-    mql.addEventListener('change', handler);
-    return () => mql.removeEventListener('change', handler);
-  }, []);
+  const isXl = useIsXlScreen();
 
   const activeVariantId = useBundleStore((state) => state.activeVariants[product.id] || 'default');
   const changeVariant = useBundleStore((state) => state.changeVariant);

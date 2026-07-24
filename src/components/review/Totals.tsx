@@ -3,14 +3,12 @@ import { useBundleStore } from '../../store/useBundleStore';
 import { calculateSubtotal, calculateOriginalPrice, calculateSavings, calculateMonthly } from '../../utils/pricing';
 import { Button } from '../ui/Button';
 import { Typography } from '../ui/Typography';
-import { Save, RotateCcw } from 'lucide-react';
 import SatisfactionBadge from '../../assets/Satisfaction-Badge.svg';
 
 export const Totals: React.FC = () => {
   const products = useBundleStore((state) => state.products);
   const selectedItems = useBundleStore((state) => state.selectedItems);
   const saveBundle = useBundleStore((state) => state.saveBundle);
-  const clearBundle = useBundleStore((state) => state.clearBundle);
 
   // Derive pricing values from store state
   const subtotal = calculateSubtotal(selectedItems, products);
@@ -28,13 +26,6 @@ export const Totals: React.FC = () => {
     e.preventDefault();
     saveBundle();
     alert('Your security system configuration has been saved successfully!');
-  };
-
-  const handleReset = (e: React.MouseEvent) => {
-    e.preventDefault();
-    if (window.confirm('Are you sure you want to clear your security system?')) {
-      clearBundle();
-    }
   };
 
   return (
@@ -114,7 +105,7 @@ export const Totals: React.FC = () => {
           <a
             href="#save"
             onClick={handleSave}
-            className="inline-flex items-center gap-1 font-thin underline  text-[#484848] hover:text-primary transition-colors cursor-pointer"
+            className="inline-flex items-center gap-1 font-thin underline text-[#484848] hover:text-primary transition-colors cursor-pointer"
           >
             Save my system for later
           </a>
