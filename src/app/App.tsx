@@ -12,10 +12,10 @@ export const App: React.FC = () => {
   }, [loadBundle]);
 
   return (
-    <div className="min-h-screen bg-slate-50/50 flex flex-col font-sans">
+    <div className="min-h-screen bg-white flex flex-col font-sans">
 
       {/* Main Container */}
-      <main className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow">
+      <main className="max-w-[1350px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow">
 
         {/* Responsive Content */}
         <div className="flex gap-6 xl:gap-8 items-start flex-col xl:flex-row">

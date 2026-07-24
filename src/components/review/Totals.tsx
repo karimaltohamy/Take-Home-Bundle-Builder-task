@@ -3,8 +3,8 @@ import { useBundleStore } from '../../store/useBundleStore';
 import { calculateSubtotal, calculateOriginalPrice, calculateSavings, calculateMonthly } from '../../utils/pricing';
 import { Button } from '../ui/Button';
 import { Typography } from '../ui/Typography';
-import { Divider } from '../ui/Divider';
-import { Sparkles, Save, RotateCcw } from 'lucide-react';
+import { Save, RotateCcw } from 'lucide-react';
+import SatisfactionBadge from '../../assets/Satisfaction-Badge.svg';
 
 export const Totals: React.FC = () => {
   const products = useBundleStore((state) => state.products);
@@ -38,71 +38,60 @@ export const Totals: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row lg:flex-col gap-6 bg-slate-50 p-6 rounded-2xl border border-slate-100 shadow-inner">
-      {/* Guarantee Section */}
-      <div className="flex-1 flex gap-4 items-start">
-        {/* Seal SVG */}
-        <div className="w-16 h-16 flex-shrink-0 relative flex items-center justify-center animate-soft-pulse">
-          <svg className="w-full h-full text-primary fill-primary/10" viewBox="0 0 100 100">
-            {/* Scalloped badge border */}
-            <path
-              d="M50 5 L55 12 L63 8 L66 16 L74 15 L74 23 L82 25 L79 33 L86 38 L81 45 L86 52 L79 57 L82 65 L74 67 L74 75 L66 74 L63 82 L55 78 L50 85 L45 78 L37 82 L34 74 L26 75 L26 67 L18 65 L21 57 L14 52 L19 45 L14 38 L21 33 L18 25 L26 23 L26 15 L34 16 L37 8 L45 12 Z"
-              stroke="currentColor"
-              strokeWidth="3.5"
-              strokeLinejoin="round"
-            />
-            <circle cx="50" cy="46" r="28" stroke="currentColor" strokeWidth="2.5" fill="white" />
-          </svg>
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-2">
-            <span className="text-[8px] font-black text-primary leading-none">100%</span>
-            <span className="text-[6px] font-bold text-slate-800 uppercase tracking-tighter leading-none mt-0.5">Wyze</span>
-            <span className="text-[5px] font-semibold text-slate-500 uppercase tracking-tighter leading-none mt-0.5">Guarantee</span>
+    <div className="flex flex-col xl:gap-1">
+
+      <div className='flex flex-row md:flex-col xl:flex-row gap-2 xl:gap-6'>
+        {/* Guarantee Section */}
+        <div className="flex-1 flex gap-4 items-start">
+          {/* Seal SVG */}
+          <img src={SatisfactionBadge} alt='Satisfaction Badge' className='min-w-[78px] min-h-[78px] xl:min-w-[78px] xl:min-h-[78px] md:min-w-[131px] md:min-h-[131px] object-contain' />
+
+          <div className="md:flex hidden flex-col xl:hidden">
+            <Typography variant="body-sm" className="font-extrabold text-[17px]! text-slate-800 mb-2">
+              30-day hassle-free returns
+            </Typography>
+            <p className="text-sm text-[#1F1F1F] font-thin leading-bold mt-0.5">
+              If you're not totally in love with the product, we will refund you 100%.
+            </p>
           </div>
         </div>
 
-        <div className="flex flex-col">
-          <Typography variant="body-sm" className="font-bold text-slate-800">
-            30-day hassle-free returns
-          </Typography>
-          <p className="text-xs text-slate-500 leading-normal mt-0.5">
-            If you're not totally in love with the product, we will refund you 100%.
-          </p>
+
+        {/* Pricing Summary section */}
+        <div className="flex-1 flex flex-col justify-end md:justify-between md:flex-row xl:flex-col xl:justify-end">
+          {/* Financing text badge */}
+          {hasItems && (
+            <div className="self-end xl:mb-0">
+              <span className="inline-flex items-center gap-1 bg-primary text-white text-[10px] xl:text-[10px] md:text-[14px] font-normal px-2 py-0.5 rounded tracking-wider shadow-sm">
+                as low as ${monthly}/mo
+              </span>
+            </div>
+          )}
+
+          {/* Pricing numbers */}
+          <div className="flex items-baseline justify-between gap-4 mt-1">
+            <div className="flex items-baseline gap-2">
+              {savings > 0 && (
+                <span className="text-lg text-gray-500 line-through font-normal">
+                  ${originalPrice.toFixed(2)}
+                </span>
+              )}
+              <span className="text-xl xl:text-2xl xl:font-black font-bold text-primary">
+                ${subtotal.toFixed(2)}
+              </span>
+            </div>
+          </div>
+
+
         </div>
       </div>
 
-      <Divider className="md:hidden lg:block my-0" />
 
-      {/* Pricing Summary section */}
-      <div className="flex-1 flex flex-col justify-end">
-        {/* Financing text badge */}
-        {hasItems && (
-          <div className="self-end mb-2">
-            <span className="inline-flex items-center gap-1 bg-primary text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider shadow-sm">
-              <Sparkles size={10} className="fill-white" />
-              as low as ${monthly}/mo
-            </span>
-          </div>
-        )}
-
-        {/* Pricing numbers */}
-        <div className="flex items-baseline justify-between gap-4 mt-1">
-          <span className="text-sm font-semibold text-slate-500">Subtotal:</span>
-          <div className="flex items-baseline gap-2">
-            {savings > 0 && (
-              <span className="text-base text-slate-400 line-through font-normal">
-                ${originalPrice.toFixed(2)}
-              </span>
-            )}
-            <span className="text-2xl md:text-3xl font-black text-primary">
-              ${subtotal.toFixed(2)}
-            </span>
-          </div>
-        </div>
-
+      <div>
         {/* Savings alert banner */}
         {savings > 0 && (
-          <div className="mt-2.5 bg-emerald-50 border border-emerald-100 rounded-lg p-2 text-center">
-            <span className="text-xs font-bold text-emerald-700 block">
+          <div className="xl:mt-0.5 rounded-lg p-2 text-center">
+            <span className="text-[11px] md:text-xs font-semibold text-emerald-500 block">
               Congrats! You're saving ${savings.toFixed(2)} on your security bundle!
             </span>
           </div>
@@ -115,31 +104,21 @@ export const Totals: React.FC = () => {
           fullWidth
           disabled={!hasItems}
           onClick={handleCheckout}
-          className="mt-4 font-bold text-base h-12 shadow-md hover:shadow-lg rounded-xl"
+          className="mt-0 font-bold text-base h-12 shadow-md hover:shadow-md rounded-md"
         >
           Checkout
         </Button>
 
         {/* Save/Reset system later links */}
-        <div className="flex items-center justify-center gap-5 mt-4 text-xs">
+        <div className="flex items-center justify-center gap-5 mt-1 italic text-xs">
           <a
             href="#save"
             onClick={handleSave}
-            className="inline-flex items-center gap-1 font-semibold text-slate-500 hover:text-primary transition-colors underline cursor-pointer"
+            className="inline-flex items-center gap-1 font-thin underline  text-[#484848] hover:text-primary transition-colors cursor-pointer"
           >
-            <Save size={12} />
             Save my system for later
           </a>
-          {hasItems && (
-            <a
-              href="#clear"
-              onClick={handleReset}
-              className="inline-flex items-center gap-1 font-semibold text-slate-400 hover:text-rose-600 transition-colors underline cursor-pointer"
-            >
-              <RotateCcw size={12} />
-              Reset system
-            </a>
-          )}
+
         </div>
       </div>
     </div>

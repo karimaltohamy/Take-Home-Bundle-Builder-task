@@ -8,6 +8,9 @@ interface QuantityStepperProps {
   variantId: string;
   disabled?: boolean;
   size?: 'sm' | 'md';
+  className?: string;
+  minusClassName?: string;
+  plusClassName?: string;
 }
 
 export const QuantityStepper: React.FC<QuantityStepperProps> = ({
@@ -15,6 +18,9 @@ export const QuantityStepper: React.FC<QuantityStepperProps> = ({
   variantId,
   disabled = false,
   size = 'md',
+  className,
+  minusClassName,
+  plusClassName,
 }) => {
   const quantity = useBundleStore((state) => state.selectedItems[productId]?.variants[variantId] || 0);
   const increaseQuantity = useBundleStore((state) => state.increaseQuantity);
@@ -37,8 +43,9 @@ export const QuantityStepper: React.FC<QuantityStepperProps> = ({
   return (
     <div
       className={cn(
-        'inline-flex items-center overflow-hidden ',
+        'inline-flex items-center overflow-hidden',
         disabled && 'opacity-60 cursor-not-allowed select-none',
+        className
       )}
     >
       {/* Minus Button */}
@@ -47,7 +54,9 @@ export const QuantityStepper: React.FC<QuantityStepperProps> = ({
         onClick={handleDecrement}
         disabled={quantity <= 0 || disabled}
         className={cn(
-          'w-5 h-5 flex items-center justify-center transition-all rounded-sm border-2 border-gray-400 disabled:opacity-30 disabled:pointer-events-none text-slate-600 hover:text-primary',
+          'w-5 h-5 flex items-center justify-center transition-all rounded-sm border-2 border-[#F0F4F7] disabled:opacity-30 disabled:pointer-events-none text-slate-600 hover:text-primary',
+          quantity > 0 ? 'bg-[#F0F4F7] border-none' : '',
+          minusClassName
         )}
         aria-label="Decrease quantity"
       >
@@ -57,7 +66,7 @@ export const QuantityStepper: React.FC<QuantityStepperProps> = ({
       {/* Quantity Display */}
       <span
         className={cn(
-          'w-5 flex items-center justify-center font-normal text-slate-500 text-center select-none bg-slate-50 border-x border-slate-100',
+          'w-5 flex items-center justify-center font-normal text-slate-500 text-center select-none',
         )}
       >
         {quantity}
@@ -69,7 +78,8 @@ export const QuantityStepper: React.FC<QuantityStepperProps> = ({
         onClick={handleIncrement}
         disabled={disabled}
         className={cn(
-          'w-5 h-5 flex items-center justify-center transition-all rounded-sm bg-gray-200 active:bg-slate-300 disabled:opacity-30 disabled:pointer-events-none text-slate-600 hover:text-primary',
+          'w-5 h-5 flex items-center justify-center transition-all rounded-sm bg-[#F0F4F7] active:bg-slate-300 disabled:opacity-30 disabled:pointer-events-none text-slate-600 hover:text-primary',
+          plusClassName
         )}
         aria-label="Increase quantity"
       >

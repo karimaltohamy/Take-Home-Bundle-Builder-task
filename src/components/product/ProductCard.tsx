@@ -29,6 +29,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
 
   const activeVariantId = useBundleStore((state) => state.activeVariants[product.id] || 'default');
   const changeVariant = useBundleStore((state) => state.changeVariant);
+  const increaseQuantity = useBundleStore((state) => state.increaseQuantity);
+  const decreaseQuantity = useBundleStore((state) => state.decreaseQuantity);
   const selectedItems = useBundleStore((state) => state.selectedItems);
 
   const hasVariants = product.variants && product.variants.length > 0;
@@ -47,13 +49,25 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
   // The sensor hub stepper is disabled because its quantity is locked at 1
   const isStepperDisabled = product.id === 'wyze-sense-hub';
 
+  const handlePlanClick = () => {
+    if (product.category === 'plan') {
+      if (isSelected) {
+        decreaseQuantity(product.id, currentVariantId);
+      } else {
+        increaseQuantity(product.id, currentVariantId);
+      }
+    }
+  };
+
   return (
     <Card
       selected={isSelected}
       className={cn(
         'relative flex flex-col xl:flex-row h-full bg-white hover:-translate-y-0.5 transition-transform duration-300 select-none overflow-hidden',
+        product.category === 'plan' && 'cursor-pointer',
         className
       )}
+      onClick={product.category === 'plan' ? handlePlanClick : undefined}
     >
       {/* Discount Badge */}
       {product.badge && (
@@ -63,7 +77,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
       )}
 
       {/* Product Image */}
-      <div className="w-full mb-4 xl:max-w-[103px] xl:mt-auto xl:mb-auto">
+      <div className="w-full mb-4 xl:max-w-[103px] xl:mt-auto xl:mb-auto h-[120px] xl:h-[137px]">
         <ProductImage imageKey={product.image} variantId={hasVariants ? currentVariantId : undefined} variantImageKey={currentVariant?.image} />
       </div>
 
@@ -76,21 +90,24 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
 
         {/* Description & Learn More */}
         <div className="">
-          <p className="text-xs xl:text-[17px] text-slate-500 leading-relaxed inline">
+          <p className="text-xs xl:text-[17px] text-[#1F1F1FBF] leading-1 inline">
             {showFullDesc ? product.description : `${product.description.slice(0, isXl ? 52 : 40)}...`}
           </p>
           <button
             type="button"
-            onClick={() => setShowFullDesc(!showFullDesc)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowFullDesc(!showFullDesc);
+            }}
             className="text-xs xl:text-[15px] text-primary ml-1.5 underline hover:text-primary-hover active:scale-95 inline-flex items-center gap-0.5"
           >
             {showFullDesc ? (
               <>
-                Show Less
+                Show Less <ChevronUp size={10} />
               </>
             ) : (
               <>
-                Learn More
+                Learn More <ChevronDown size={10} />
               </>
             )}
           </button>
@@ -110,12 +127,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
 
         {/* Pricing and Stepper Footer */}
         <div className="pt-4 flex items-center justify-between gap-2">
-          <QuantityStepper
-            productId={product.id}
-            variantId={currentVariantId}
-            disabled={isStepperDisabled}
-            size="sm"
-          />
+          {product.category !== 'plan' && (
+            <QuantityStepper
+              productId={product.id}
+              variantId={currentVariantId}
+              disabled={isStepperDisabled}
+              size="sm"
+            />
+          )}
 
           <div className="flex items-center gap-1">
             <Price

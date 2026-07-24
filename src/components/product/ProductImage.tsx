@@ -78,7 +78,7 @@ export const ProductImage: React.FC<ProductImageProps> = ({
     switch (imageKey) {
       case 'plan-unlimited':
         return (
-          <div className="w-full h-full flex flex-col items-center justify-center bg-violet-50 text-primary rounded-lg border border-violet-100 p-2">
+          <div className="w-full h-full flex flex-col items-center justify-center  text-primary p-2">
             <Cloud className="w-12 h-12 stroke-[1.5]" />
             <div className="absolute flex items-center justify-center bg-white rounded-full p-1 shadow-sm mt-3 ml-8">
               <Shield className="w-5 h-5 text-emerald-500 fill-emerald-500/10 stroke-[2.5]" />
@@ -88,7 +88,7 @@ export const ProductImage: React.FC<ProductImageProps> = ({
 
       case 'plan-plus':
         return (
-          <div className="w-full h-full flex flex-col items-center justify-center bg-blue-50 text-blue-600 rounded-lg border border-blue-100 p-2">
+          <div className="w-full h-full flex flex-col items-center justify-center  text-blue-600 p-2">
             <Shield className="w-12 h-12 stroke-[1.5] fill-blue-50" />
             <div className="absolute flex items-center justify-center bg-white rounded-full p-1 shadow-sm mt-4 ml-6 font-bold text-xs">
               +
@@ -98,7 +98,7 @@ export const ProductImage: React.FC<ProductImageProps> = ({
 
       case 'plan-none':
         return (
-          <div className="w-full h-full flex flex-col items-center justify-center bg-slate-50 text-slate-400 rounded-lg border border-slate-100 p-2">
+          <div className="w-full h-full flex flex-col items-center justify-center  text-slate-400 p-2">
             <ShieldAlert className="w-12 h-12 stroke-[1.5]" />
           </div>
         );
@@ -225,7 +225,7 @@ export const ProductImage: React.FC<ProductImageProps> = ({
   };
 
   return (
-    <div className={cn('relative w-full h-[120px] xl:h-[137px] flex items-center justify-center rounded-lg', className)}>
+    <div className={cn('relative w-full h-full flex items-center justify-center rounded-lg', className)}>
       {renderImage()}
     </div>
   );

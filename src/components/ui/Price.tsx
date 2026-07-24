@@ -34,7 +34,7 @@ export const Price: React.FC<PriceProps> = ({
       {compareAtPrice !== undefined && compareAtPrice !== null && (
         <span
           className={cn(
-            'text-red-400 line-through text-md font-thin leading-1',
+            'text-red-400 line-through text-md font-thin leading-2',
             size === 'sm' && 'text-sm',
             size === 'lg' && 'text-lg',
             compareClassName
