@@ -66,7 +66,7 @@ export const QuantityStepper: React.FC<QuantityStepperProps> = ({
       {/* Quantity Display */}
       <span
         className={cn(
-          'w-5 flex items-center justify-center font-normal text-slate-500 text-center select-none',
+          'w-6 flex items-center justify-center font-normal text-slate-500 text-center select-none',
         )}
       >
         {quantity}

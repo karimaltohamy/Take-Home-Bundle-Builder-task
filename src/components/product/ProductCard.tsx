@@ -71,7 +71,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
       )}
 
       {/* Product Image */}
-      <div className="w-full mb-4 xl:max-w-[103px] xl:mt-auto xl:mb-auto h-[120px] xl:h-[137px]">
+      <div className="w-full mb-4 xl:max-w-[100px] xl:mt-auto xl:mb-auto h-[120px] xl:h-[137px]">
         <ProductImage imageKey={product.image} variantId={hasVariants ? currentVariantId : undefined} variantImageKey={currentVariant?.image} />
       </div>
 
