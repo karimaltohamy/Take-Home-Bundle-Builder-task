@@ -53,7 +53,7 @@ export const ReviewPanel: React.FC = () => {
   const hasItems = totalItemsCount > 0;
 
   return (
-    <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col h-full">
+    <div className="bg-primary-light rounded-md p-6 flex flex-col h-full">
       {/* Title Header */}
       <div className="mb-6">
         <Typography variant="h2" className="font-extrabold text-slate-800 tracking-tight">

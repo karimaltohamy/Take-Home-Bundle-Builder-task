@@ -1,4 +1,5 @@
 import type { Product, SelectedItems } from '../types/product';
+import { FINANCING_RATE } from '../constants';
 
 /**
  * Calculates the total original price of all selected items.
@@ -9,18 +10,18 @@ export const calculateOriginalPrice = (
   products: Product[]
 ): number => {
   let total = 0;
-  
+
   Object.entries(selectedItems).forEach(([productId, selection]) => {
     const product = products.find((p) => p.id === productId);
     if (!product) return;
-    
-    Object.entries(selection.variants).forEach(([_, quantity]) => {
+
+    Object.entries(selection.variants).forEach(([, quantity]) => {
       if (quantity <= 0) return;
       const originalUnitPrice = product.compareAtPrice !== null ? product.compareAtPrice : product.price;
       total += quantity * originalUnitPrice;
     });
   });
-  
+
   return Number(total.toFixed(2));
 };
 
@@ -32,17 +33,17 @@ export const calculateSubtotal = (
   products: Product[]
 ): number => {
   let total = 0;
-  
+
   Object.entries(selectedItems).forEach(([productId, selection]) => {
     const product = products.find((p) => p.id === productId);
     if (!product) return;
-    
-    Object.entries(selection.variants).forEach(([_, quantity]) => {
+
+    Object.entries(selection.variants).forEach(([, quantity]) => {
       if (quantity <= 0) return;
       total += quantity * product.price;
     });
   });
-  
+
   return Number(total.toFixed(2));
 };
 
@@ -60,6 +61,6 @@ export const calculateSavings = (originalPrice: number, subtotal: number): numbe
  */
 export const calculateMonthly = (subtotal: number): number => {
   if (subtotal <= 0) return 0;
-  const monthly = subtotal * 0.10213;
+  const monthly = subtotal * FINANCING_RATE;
   return Number(monthly.toFixed(2));
 };

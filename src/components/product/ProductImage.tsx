@@ -2,115 +2,80 @@ import React from 'react';
 import { Shield, Cloud, ShieldAlert, HelpCircle } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
+import cameraImg1 from '../../assets/camera-img1.png';
+import cameraImg2 from '../../assets/camera-img2.png';
+import cameraImg3 from '../../assets/camera-img3.png';
+import cameraImg4 from '../../assets/camera-img4.png';
+import cameraImg5 from '../../assets/camera-img5.png';
+
+import cameraVariantWhite from '../../assets/camera-variant-white.png';
+import cameraVariantGray from '../../assets/camera-variant-gray.png';
+import cameraVariantBlack from '../../assets/camera-variant-black.png';
+
+import camera2VariantWhite from '../../assets/camera2-variant-white.png';
+import camera2VariantBlack from '../../assets/camera2-variant-black.png';
+
+import camera3VariantWhite from '../../assets/camera3-variant-white.png';
+import camera3VariantBlack from '../../assets/camera3-variant-black.png';
+
+import camera5VariantWhite from '../../assets/camera5-variant-white.png';
+import camera5VariantBlack from '../../assets/camera5-variant-black.png';
+
 interface ProductImageProps {
   imageKey: string;
   variantId?: string;
+  variantImageKey?: string;
   className?: string;
 }
+
+const PNG_IMAGES: Record<string, string> = {
+  'camera-img1.png': cameraImg1,
+  'camera-img2.png': cameraImg2,
+  'camera-img3.png': cameraImg3,
+  'camera-img4.png': cameraImg4,
+  'camera-img5.png': cameraImg5,
+};
+
+const VARIANT_MAP: Record<string, Record<string, string>> = {
+  'camera-img1.png': {
+    white: cameraVariantWhite,
+    grey: cameraVariantGray,
+    black: cameraVariantBlack,
+  },
+  'camera-img2.png': {
+    white: camera2VariantWhite,
+    black: camera2VariantBlack,
+  },
+  'camera-img3.png': {
+    white: camera3VariantWhite,
+    black: camera3VariantBlack,
+  },
+  'camera-img5.png': {
+    white: camera5VariantWhite,
+    black: camera5VariantBlack,
+  },
+};
+
+const VARIANT_IMAGES: Record<string, string> = {
+  'camera-variant-white.png': cameraVariantWhite,
+  'camera-variant-gray.png': cameraVariantGray,
+  'camera-variant-black.png': cameraVariantBlack,
+  'camera2-variant-white.png': camera2VariantWhite,
+  'camera2-variant-black.png': camera2VariantBlack,
+  'camera3-variant-white.png': camera3VariantWhite,
+  'camera3-variant-black.png': camera3VariantBlack,
+  'camera5-variant-white.png': camera5VariantWhite,
+  'camera5-variant-black.png': camera5VariantBlack,
+};
 
 export const ProductImage: React.FC<ProductImageProps> = ({
   imageKey,
   variantId,
+  variantImageKey,
   className,
 }) => {
-  // Select fill color based on variant
-  const getVariantColor = (vid?: string) => {
-    if (vid === 'black') return '#334155'; // slate-700
-    if (vid === 'grey') return '#94A3B8'; // slate-400
-    return '#E2E8F0'; // slate-200 (White)
-  };
-
-  const variantFill = getVariantColor(variantId);
-
-  // Render clean, beautiful vector illustrations for products
   const renderSvg = () => {
     switch (imageKey) {
-      case 'camera-v4':
-        return (
-          <svg className="w-full h-full text-slate-800" viewBox="0 0 100 100" fill="none">
-            {/* Base Stand */}
-            <path d="M40 85h20M50 70v15" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
-            <circle cx="50" cy="70" r="8" fill="#CBD5E1" stroke="currentColor" strokeWidth="3" />
-            {/* Camera Body (Square/Rounded) */}
-            <rect x="30" y="20" width="40" height="40" rx="8" fill={variantFill} stroke="currentColor" strokeWidth="4" />
-            {/* Camera Lens Outer */}
-            <circle cx="50" cy="40" r="14" fill="#1E293B" stroke="currentColor" strokeWidth="3" />
-            {/* Lens Inner Glass */}
-            <circle cx="50" cy="40" r="6" fill="#0284C7" />
-            {/* Lens Reflection */}
-            <circle cx="48" cy="38" r="2" fill="white" />
-            {/* Small status LED */}
-            <circle cx="50" cy="54" r="1.5" fill="#10B981" />
-          </svg>
-        );
-
-      case 'camera-pan-v3':
-        return (
-          <svg className="w-full h-full text-slate-800" viewBox="0 0 100 100" fill="none">
-            {/* Rotatable base */}
-            <ellipse cx="50" cy="80" rx="22" ry="8" fill="#94A3B8" stroke="currentColor" strokeWidth="4" />
-            {/* Vertically sliding joints */}
-            <path d="M40 60v15M60 60v15" stroke="currentColor" strokeWidth="4" />
-            {/* Camera body block */}
-            <rect x="35" y="25" width="30" height="36" rx="6" fill={variantFill} stroke="currentColor" strokeWidth="4" />
-            {/* Lens circular globe */}
-            <circle cx="50" cy="40" r="11" fill="#1E293B" stroke="currentColor" strokeWidth="3" />
-            <circle cx="50" cy="40" r="5" fill="#0284C7" />
-            {/* Rotation Arrows (360° visual) */}
-            <path d="M22 45a28 28 0 0156 0" stroke="#4E2FD2" strokeWidth="2.5" strokeDasharray="3 3" />
-            <path d="M78 45l-4-4M78 45l-4 4" stroke="#4E2FD2" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        );
-
-      case 'camera-floodlight-v2':
-        return (
-          <svg className="w-full h-full text-slate-800" viewBox="0 0 100 100" fill="none">
-            {/* Left light panel */}
-            <path d="M12 28l18 6v22l-18-6z" fill="#E2E8F0" stroke="currentColor" strokeWidth="3" />
-            <path d="M16 33l10 3v14l-10-3z" fill="#F8FAFC" />
-            {/* Right light panel */}
-            <path d="M88 28l-18 6v22l18-6z" fill="#E2E8F0" stroke="currentColor" strokeWidth="3" />
-            <path d="M84 33l-10 3v14l10-3z" fill="#F8FAFC" />
-            {/* Mount base */}
-            <circle cx="50" cy="45" r="16" fill="#94A3B8" stroke="currentColor" strokeWidth="3" />
-            {/* Camera module under the mount */}
-            <rect x="40" y="48" width="20" height="24" rx="4" fill={variantFill} stroke="currentColor" strokeWidth="3" />
-            <circle cx="50" cy="58" r="6" fill="#1E293B" />
-            <circle cx="50" cy="58" r="2.5" fill="#0284C7" />
-          </svg>
-        );
-
-      case 'doorbell':
-        return (
-          <svg className="w-full h-full text-slate-800" viewBox="0 0 100 100" fill="none">
-            {/* Doorbell Body */}
-            <rect x="36" y="15" width="28" height="70" rx="6" fill="#1E293B" stroke="currentColor" strokeWidth="4" />
-            {/* Upper Camera Section */}
-            <circle cx="50" cy="30" r="10" fill="#0F172A" />
-            <circle cx="50" cy="30" r="4" fill="#0284C7" />
-            {/* Lower Button Section */}
-            <circle cx="50" cy="65" r="11" fill="#334155" stroke="#4E2FD2" strokeWidth="2.5" />
-            {/* Button Bell Icon */}
-            <circle cx="50" cy="65" r="6" fill="#64748B" />
-          </svg>
-        );
-
-      case 'camera-pro':
-        return (
-          <svg className="w-full h-full text-slate-800" viewBox="0 0 100 100" fill="none">
-            {/* Stand */}
-            <path d="M50 72v12M38 84h24" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
-            {/* Rounded Cylinder Body */}
-            <rect x="32" y="16" width="36" height="56" rx="18" fill={variantFill} stroke="currentColor" strokeWidth="4" />
-            {/* Black Lens Plate */}
-            <rect x="36" y="20" width="28" height="26" rx="10" fill="#1E293B" />
-            <circle cx="50" cy="30" r="8" fill="#0284C7" />
-            <circle cx="48" cy="28" r="2.5" fill="white" />
-            {/* PIR Motion Sensor below lens */}
-            <ellipse cx="50" cy="54" rx="7" ry="4" fill="#64748B" />
-          </svg>
-        );
-
       case 'plan-unlimited':
         return (
           <div className="w-full h-full flex flex-col items-center justify-center bg-violet-50 text-primary rounded-lg border border-violet-100 p-2">
@@ -224,9 +189,44 @@ export const ProductImage: React.FC<ProductImageProps> = ({
     }
   };
 
+  const renderImage = () => {
+    if (variantImageKey && VARIANT_IMAGES[variantImageKey]) {
+      return (
+        <img
+          src={VARIANT_IMAGES[variantImageKey]}
+          alt={imageKey}
+          className="w-full h-full object-contain rounded-lg"
+        />
+      );
+    }
+
+    const variants = VARIANT_MAP[imageKey];
+    if (variants && variantId && variants[variantId]) {
+      return (
+        <img
+          src={variants[variantId]}
+          alt={imageKey}
+          className="w-full h-full object-contain rounded-lg"
+        />
+      );
+    }
+
+    if (PNG_IMAGES[imageKey]) {
+      return (
+        <img
+          src={PNG_IMAGES[imageKey]}
+          alt={imageKey}
+          className="w-full h-full object-contain rounded-lg"
+        />
+      );
+    }
+
+    return renderSvg();
+  };
+
   return (
-    <div className={cn('relative w-full aspect-square flex items-center justify-center bg-slate-50 border border-slate-100 rounded-lg p-3', className)}>
-      {renderSvg()}
+    <div className={cn('relative w-full h-[120px] xl:h-[137px] flex items-center justify-center rounded-lg', className)}>
+      {renderImage()}
     </div>
   );
 };

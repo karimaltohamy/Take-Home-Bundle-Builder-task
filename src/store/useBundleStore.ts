@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import type { BundleState } from '../types/store';
 import type { Product, SelectedItems } from '../types/product';
 import productsData from '../data/products.json';
+import { TOTAL_STEPS } from '../constants';
 
 // Helper to cast the JSON mock data to Product[]
 const products = productsData as Product[];
@@ -32,14 +33,12 @@ const adjustSensorHubQuantity = (selected: SelectedItems, productsList: Product[
   });
 
   if (totalSensorsQty > 0) {
-    // If sensors are selected, the hub is automatically added at quantity 1
     selected[sensorHubId] = {
       variants: {
-        'default': 1
+        default: 1
       }
     };
   } else {
-    // If no sensors are selected, remove the hub
     delete selected[sensorHubId];
   }
 };
@@ -123,7 +122,7 @@ export const useBundleStore = create<BundleState>((set, get) => ({
 
   nextStep: () => {
     set((state) => ({
-      currentAccordionStep: Math.min(state.currentAccordionStep + 1, 4)
+      currentAccordionStep: Math.min(state.currentAccordionStep + 1, TOTAL_STEPS)
     }));
   },
 
@@ -158,9 +157,16 @@ export const useBundleStore = create<BundleState>((set, get) => ({
           activeVariants?: { [productId: string]: string };
           currentAccordionStep?: number;
         };
+        
+        const initialVariants = getInitialActiveVariants(get().products);
+        const selectedItems = parsed.selectedItems || {};
+        
+        // Ensure sensor hub is present if sensors are selected
+        adjustSensorHubQuantity(selectedItems, get().products);
+        
         set({
-          selectedItems: parsed.selectedItems || {},
-          activeVariants: parsed.activeVariants || {},
+          selectedItems,
+          activeVariants: { ...initialVariants, ...(parsed.activeVariants || {}) },
           currentAccordionStep: parsed.currentAccordionStep || 1
         });
       } catch (e) {

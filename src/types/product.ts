@@ -1,6 +1,7 @@
 export interface Variant {
   id: string;
   name: string;
+  image?: string;
 }
 
 export type CategoryType = 'cameras' | 'plan' | 'sensors' | 'accessories';

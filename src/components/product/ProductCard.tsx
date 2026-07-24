@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import type { Product } from '../../types/product';
 import { useBundleStore } from '../../store/useBundleStore';
 import { ProductImage } from './ProductImage';
@@ -9,19 +9,33 @@ import { Badge } from '../ui/Badge';
 import { Price } from '../ui/Price';
 import { Typography } from '../ui/Typography';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import { cn } from '../../lib/utils';
 
 interface ProductCardProps {
   product: Product;
+  className?: string;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) => {
   const [showFullDesc, setShowFullDesc] = useState(false);
+  const [isXl, setIsXl] = useState(() => window.matchMedia('(min-width: 1280px)').matches);
+
+  useEffect(() => {
+    const mql = window.matchMedia('(min-width: 1280px)');
+    const handler = (e: MediaQueryListEvent) => setIsXl(e.matches);
+    mql.addEventListener('change', handler);
+    return () => mql.removeEventListener('change', handler);
+  }, []);
+
   const activeVariantId = useBundleStore((state) => state.activeVariants[product.id] || 'default');
   const changeVariant = useBundleStore((state) => state.changeVariant);
   const selectedItems = useBundleStore((state) => state.selectedItems);
 
   const hasVariants = product.variants && product.variants.length > 0;
   const currentVariantId = hasVariants ? activeVariantId : 'default';
+  const currentVariant = hasVariants
+    ? product.variants.find((v) => v.id === currentVariantId)
+    : null;
 
   // Determine if this product has any quantity selected
   const productSelection = selectedItems[product.id];
@@ -36,7 +50,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <Card
       selected={isSelected}
-      className="relative flex flex-col h-full bg-white hover:-translate-y-0.5 transition-transform duration-300 select-none overflow-hidden"
+      className={cn(
+        'relative flex flex-col xl:flex-row h-full bg-white hover:-translate-y-0.5 transition-transform duration-300 select-none overflow-hidden',
+        className
+      )}
     >
       {/* Discount Badge */}
       {product.badge && (
@@ -46,8 +63,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       )}
 
       {/* Product Image */}
-      <div className="w-full aspect-square mb-4">
-        <ProductImage imageKey={product.image} variantId={hasVariants ? currentVariantId : undefined} />
+      <div className="w-full mb-4 xl:max-w-[103px] xl:mt-auto xl:mb-auto">
+        <ProductImage imageKey={product.image} variantId={hasVariants ? currentVariantId : undefined} variantImageKey={currentVariant?.image} />
       </div>
 
       {/* Info Section */}
@@ -58,22 +75,22 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </Typography>
 
         {/* Description & Learn More */}
-        <div className="mb-3">
-          <p className="text-xs text-slate-500 leading-relaxed inline">
-            {showFullDesc ? product.description : `${product.description.slice(0, 52)}...`}
+        <div className="">
+          <p className="text-xs xl:text-[17px] text-slate-500 leading-relaxed inline">
+            {showFullDesc ? product.description : `${product.description.slice(0, isXl ? 52 : 40)}...`}
           </p>
           <button
             type="button"
             onClick={() => setShowFullDesc(!showFullDesc)}
-            className="text-[11px] font-bold text-primary ml-1.5 hover:text-primary-hover active:scale-95 inline-flex items-center gap-0.5"
+            className="text-xs xl:text-[15px] text-primary ml-1.5 underline hover:text-primary-hover active:scale-95 inline-flex items-center gap-0.5"
           >
             {showFullDesc ? (
               <>
-                Show Less <ChevronUp size={10} />
+                Show Less
               </>
             ) : (
               <>
-                Learn More <ChevronDown size={10} />
+                Learn More
               </>
             )}
           </button>
@@ -81,7 +98,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
         {/* Variant Selector (if variants exist) */}
         {hasVariants && (
-          <div className="mb-4">
+          <div className="mb">
             <VariantSelector
               productId={product.id}
               variants={product.variants}
@@ -90,27 +107,30 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             />
           </div>
         )}
-      </div>
 
-      {/* Pricing and Stepper Footer */}
-      <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between gap-2">
-        <div className="flex flex-col">
-          <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Price</span>
-          <Price
-            price={product.price}
-            compareAtPrice={product.compareAtPrice}
-            isMonthly={product.category === 'plan'}
-            size="md"
+        {/* Pricing and Stepper Footer */}
+        <div className="pt-4 flex items-center justify-between gap-2">
+          <QuantityStepper
+            productId={product.id}
+            variantId={currentVariantId}
+            disabled={isStepperDisabled}
+            size="sm"
           />
-        </div>
 
-        <QuantityStepper
-          productId={product.id}
-          variantId={currentVariantId}
-          disabled={isStepperDisabled}
-          size="sm"
-        />
+          <div className="flex items-center gap-1">
+            <Price
+              price={product.price}
+              compareAtPrice={product.compareAtPrice}
+              isMonthly={product.category === 'plan'}
+              size={product.category === 'plan' ? "sm" : "lg"}
+            />
+          </div>
+
+
+        </div>
       </div>
+
+
     </Card>
   );
 };

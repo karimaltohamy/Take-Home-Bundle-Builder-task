@@ -37,9 +37,8 @@ export const QuantityStepper: React.FC<QuantityStepperProps> = ({
   return (
     <div
       className={cn(
-        'inline-flex items-center border border-slate-200 rounded-lg overflow-hidden bg-slate-50 shadow-sm',
-        disabled && 'opacity-60 cursor-not-allowed select-none bg-slate-100',
-        size === 'sm' ? 'h-8' : 'h-10'
+        'inline-flex items-center overflow-hidden ',
+        disabled && 'opacity-60 cursor-not-allowed select-none',
       )}
     >
       {/* Minus Button */}
@@ -48,8 +47,7 @@ export const QuantityStepper: React.FC<QuantityStepperProps> = ({
         onClick={handleDecrement}
         disabled={quantity <= 0 || disabled}
         className={cn(
-          'flex items-center justify-center transition-all bg-white active:bg-slate-100 disabled:opacity-30 disabled:pointer-events-none text-slate-600 hover:text-primary',
-          size === 'sm' ? 'w-8 h-full' : 'w-10 h-full'
+          'w-5 h-5 flex items-center justify-center transition-all rounded-sm border-2 border-gray-400 disabled:opacity-30 disabled:pointer-events-none text-slate-600 hover:text-primary',
         )}
         aria-label="Decrease quantity"
       >
@@ -59,8 +57,7 @@ export const QuantityStepper: React.FC<QuantityStepperProps> = ({
       {/* Quantity Display */}
       <span
         className={cn(
-          'flex items-center justify-center font-bold text-slate-800 text-center select-none bg-slate-50 border-x border-slate-100',
-          size === 'sm' ? 'w-8 text-xs' : 'w-10 text-sm'
+          'w-5 flex items-center justify-center font-normal text-slate-500 text-center select-none bg-slate-50 border-x border-slate-100',
         )}
       >
         {quantity}
@@ -72,8 +69,7 @@ export const QuantityStepper: React.FC<QuantityStepperProps> = ({
         onClick={handleIncrement}
         disabled={disabled}
         className={cn(
-          'flex items-center justify-center transition-all bg-white active:bg-slate-100 disabled:opacity-30 disabled:pointer-events-none text-slate-600 hover:text-primary',
-          size === 'sm' ? 'w-8 h-full' : 'w-10 h-full'
+          'w-5 h-5 flex items-center justify-center transition-all rounded-sm bg-gray-200 active:bg-slate-300 disabled:opacity-30 disabled:pointer-events-none text-slate-600 hover:text-primary',
         )}
         aria-label="Increase quantity"
       >

@@ -15,8 +15,8 @@ export const Typography: React.FC<TypographyProps> = ({
 }) => {
   const Component = as || (
     variant === 'h1' ? 'h1' :
-    variant === 'h2' ? 'h2' :
-    variant === 'h3' ? 'h3' : 'p'
+      variant === 'h2' ? 'h2' :
+        variant === 'h3' ? 'h3' : 'p'
   );
 
   return (

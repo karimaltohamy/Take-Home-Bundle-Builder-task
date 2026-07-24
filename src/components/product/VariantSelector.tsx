@@ -2,6 +2,19 @@ import React from 'react';
 import type { Variant } from '../../types/product';
 import { cn } from '../../lib/utils';
 
+import cameraVariantWhite from '../../assets/camera-variant-white.png';
+import cameraVariantGray from '../../assets/camera-variant-gray.png';
+import cameraVariantBlack from '../../assets/camera-variant-black.png';
+
+import camera2VariantWhite from '../../assets/camera2-variant-white.png';
+import camera2VariantBlack from '../../assets/camera2-variant-black.png';
+
+import camera3VariantWhite from '../../assets/camera3-variant-white.png';
+import camera3VariantBlack from '../../assets/camera3-variant-black.png';
+
+import camera5VariantWhite from '../../assets/camera5-variant-white.png';
+import camera5VariantBlack from '../../assets/camera5-variant-black.png';
+
 interface VariantSelectorProps {
   productId: string;
   variants: Variant[];
@@ -9,11 +22,16 @@ interface VariantSelectorProps {
   onChange: (variantId: string) => void;
 }
 
-// Color map to render swatches next to variant names
-const swatchColorMap: { [key: string]: string } = {
-  white: 'bg-white border-slate-300 shadow-sm',
-  grey: 'bg-slate-400 border-slate-500 shadow-sm',
-  black: 'bg-slate-900 border-slate-950 shadow-sm',
+const VARIANT_IMAGES: Record<string, string> = {
+  'camera-variant-white.png': cameraVariantWhite,
+  'camera-variant-gray.png': cameraVariantGray,
+  'camera-variant-black.png': cameraVariantBlack,
+  'camera2-variant-white.png': camera2VariantWhite,
+  'camera2-variant-black.png': camera2VariantBlack,
+  'camera3-variant-white.png': camera3VariantWhite,
+  'camera3-variant-black.png': camera3VariantBlack,
+  'camera5-variant-white.png': camera5VariantWhite,
+  'camera5-variant-black.png': camera5VariantBlack,
 };
 
 export const VariantSelector: React.FC<VariantSelectorProps> = ({
@@ -24,10 +42,10 @@ export const VariantSelector: React.FC<VariantSelectorProps> = ({
   if (!variants || variants.length === 0) return null;
 
   return (
-    <div className="flex flex-wrap gap-1.5 mt-3">
+    <div className="flex gap-1.5 mt-3">
       {variants.map((variant) => {
         const isActive = variant.id === activeVariantId;
-        const swatchClass = swatchColorMap[variant.id] || 'bg-slate-300';
+        const variantSrc = variant.image ? VARIANT_IMAGES[variant.image] : undefined;
 
         return (
           <button
@@ -35,14 +53,15 @@ export const VariantSelector: React.FC<VariantSelectorProps> = ({
             type="button"
             onClick={() => onChange(variant.id)}
             className={cn(
-              'inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded-md border transition-all cursor-pointer select-none',
+              'flex items-center gap-0.5 px-1.5 py-0.5 text-[11px] rounded-sm border transition-all cursor-pointer select-none',
               isActive
-                ? 'border-slate-800 bg-slate-900 text-white shadow-sm'
-                : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50'
+                ? 'border-green-500 bg-green-50 shadow-sm'
+                : 'border-[#FFFFFF] bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50'
             )}
           >
-            {/* Color swatch */}
-            <span className={cn('w-2.5 h-2.5 rounded-full border', swatchClass)} />
+            {variantSrc && (
+              <img src={variantSrc} alt={variant.name} className='w-5 h-5' />
+            )}
             <span>{variant.name}</span>
           </button>
         );

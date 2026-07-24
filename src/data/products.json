@@ -7,11 +7,11 @@
     "price": 27.98,
     "compareAtPrice": 35.98,
     "badge": "Save 22%",
-    "image": "camera-v4",
+    "image": "camera-img1.png",
     "variants": [
-      { "id": "white", "name": "White" },
-      { "id": "grey", "name": "Grey" },
-      { "id": "black", "name": "Black" }
+      { "id": "white", "name": "White", "image": "camera-variant-white.png" },
+      { "id": "grey", "name": "Grey", "image": "camera-variant-gray.png" },
+      { "id": "black", "name": "Black", "image": "camera-variant-black.png" }
     ]
   },
   {
@@ -22,10 +22,10 @@
     "price": 34.98,
     "compareAtPrice": 39.98,
     "badge": "Save 12%",
-    "image": "camera-pan-v3",
+    "image": "camera-img2.png",
     "variants": [
-      { "id": "white", "name": "White" },
-      { "id": "black", "name": "Black" }
+      { "id": "white", "name": "White", "image": "camera2-variant-white.png" },
+      { "id": "black", "name": "Black", "image": "camera2-variant-black.png" }
     ]
   },
   {
@@ -36,10 +36,10 @@
     "price": 69.98,
     "compareAtPrice": 89.98,
     "badge": "Save 22%",
-    "image": "camera-floodlight-v2",
+    "image": "camera-img3.png",
     "variants": [
-      { "id": "white", "name": "White" },
-      { "id": "black", "name": "Black" }
+      { "id": "white", "name": "White", "image": "camera3-variant-white.png" },
+      { "id": "black", "name": "Black", "image": "camera3-variant-black.png" }
     ]
   },
   {
@@ -50,7 +50,7 @@
     "price": 69.98,
     "compareAtPrice": null,
     "badge": null,
-    "image": "doorbell",
+    "image": "camera-img4.png",
     "variants": []
   },
   {
@@ -61,10 +61,10 @@
     "price": 89.98,
     "compareAtPrice": null,
     "badge": null,
-    "image": "camera-pro",
+    "image": "camera-img5.png",
     "variants": [
-      { "id": "white", "name": "White" },
-      { "id": "black", "name": "Black" }
+      { "id": "white", "name": "White", "image": "camera5-variant-white.png" },
+      { "id": "black", "name": "Black", "image": "camera5-variant-black.png" }
     ]
   },
   {

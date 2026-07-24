@@ -29,14 +29,14 @@ export const Price: React.FC<PriceProps> = ({
   const isFree = price === 0;
 
   return (
-    <div className={cn('inline-flex items-center gap-1.5', className)} {...props}>
+    <div className={cn('inline-flex items-center flex-row gap-1.5 xl:gap-0 xl:flex-col', className)} {...props}>
       {/* Compare price (crossed out) */}
       {compareAtPrice !== undefined && compareAtPrice !== null && (
         <span
           className={cn(
-            'text-slate-400 line-through text-xs font-normal',
-            size === 'sm' && 'text-[10px]',
-            size === 'lg' && 'text-sm',
+            'text-red-400 line-through text-md font-thin leading-1',
+            size === 'sm' && 'text-sm',
+            size === 'lg' && 'text-lg',
             compareClassName
           )}
         >
@@ -47,8 +47,8 @@ export const Price: React.FC<PriceProps> = ({
       {/* Actual Price */}
       <span
         className={cn(
-          'font-semibold text-slate-900',
-          isFree && 'text-emerald-600 font-bold',
+          'font-thin text-[#575757]',
+          isFree && 'text-emerald-600 font-thin',
           size === 'sm' && 'text-xs',
           size === 'md' && 'text-sm',
           size === 'lg' && 'text-lg',

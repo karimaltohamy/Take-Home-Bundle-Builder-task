@@ -40,6 +40,7 @@ export const ReviewRow: React.FC<ReviewRowProps> = ({
           <ProductImage
             imageKey={product.image}
             variantId={variantId !== 'default' ? variantId : undefined}
+            variantImageKey={variant?.image}
             className="p-1 border-slate-100"
           />
         </div>
