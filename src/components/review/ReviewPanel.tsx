@@ -54,21 +54,19 @@ export const ReviewPanel: React.FC = () => {
   const hasItems = totalItemsCount > 0;
 
   return (
-    <div className="bg-primary-light rounded-md p-4 py-7 xl:py-4 flex flex-col h-full">
+    <div className="bg-primary-light rounded-md p-4 py-7 xl:py-4 px-4 lg:px-10 xl:px-4 flex flex-col h-full">
       <span className='uppercase font-thin mb-4 text-sm hidden xl:block'>Review</span>
 
       <div className='px-2'>
-
-
         {/* Main Responsive Layout Split */}
-        <div className="flex flex-col lg:flex-row xl:flex-col gap-6 xl:gap-0 justify-between flex-grow">
-          <div>
+        <div className="flex flex-col lg:flex-row xl:flex-col gap-3 lg:gap-12 xl:gap-0 justify-between flex-grow">
+          <div className='flex-1'>
             {/* Title Header */}
             <div className="mb-2">
               <Typography variant="h2" className="font-medium text-slate-800 tracking-tight mb-0">
                 Your security system
               </Typography>
-              <Typography variant="body-sm" className="text-[#1F1F1FBF] leading-5! px-1">
+              <Typography variant="body-sm" className="text-[#1F1F1FBF] leading-5! px-1 text-lg! xl:text-md!">
                 Review your personalized protection system designed to keep what matters most safe.
               </Typography>
             </div>
@@ -83,7 +81,7 @@ export const ReviewPanel: React.FC = () => {
 
                     return (
                       <div key={key} className="flex flex-col border-t border-[#CED6DE] pt-3 w-full">
-                        <span className="text-[10px] font-thin text-[#A8B2BD] uppercase tracking-widest mb-0">
+                        <span className="text-[10px] font-thin text-[#A8B2BD] uppercase tracking-widest mb-1">
                           {category.label}
                         </span>
                         <div className="flex flex-col divide-y divide-slate-100 bg-slate-50/30 rounded-xl border border-slate-100">

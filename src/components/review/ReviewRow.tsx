@@ -47,12 +47,12 @@ export const ReviewRow: React.FC<ReviewRowProps> = ({
     <div className="flex items-center justify-between py-1 border-b border-slate-100 last:border-0 gap-3">
       {/* Thumbnail and Title */}
       <div className="flex items-center gap-3 min-w-0 flex-1">
-        <div className="w-12 h-12 flex-shrink-0">
+        <div className="flex-shrink-0">
           <ProductImage
             imageKey={product.image}
             variantId={variantId !== 'default' ? variantId : undefined}
             variantImageKey={variant?.image}
-            className="p-1 border-slate-100 bg-white w-10 h-10"
+            className=" bg-white w-[40px]! h-[40px]! overflow-hidden"
           />
         </div>
         <div className="min-w-0 flex flex-col">

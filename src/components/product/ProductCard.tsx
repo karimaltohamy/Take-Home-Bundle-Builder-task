@@ -130,7 +130,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
             />
           )}
 
-          <div className="flex items-center gap-1">
+          <div className="flex items-center justify-end gap-1">
             <Price
               price={product.price}
               compareAtPrice={product.compareAtPrice}

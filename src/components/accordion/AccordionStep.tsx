@@ -35,11 +35,11 @@ export const AccordionStep: React.FC<AccordionStepProps> = ({
         type="button"
         onClick={onToggle}
         className={cn(
-          'w-full text-left py-4 transition-all select-none cursor-pointer',
+          'w-full text-left pb-3 pt-1.5 transition-all select-none cursor-pointer',
           isOpen ? 'bg-primary-light' : 'hover:bg-slate-50'
         )}
       >
-        <span className="text-[10px] font-bold text-[#1F1F1F] uppercase tracking-widest border-b border-[#1F1F1F] block pb-2 mb-4 px-5" >
+        <span className="text-[10px] font-bold text-[#1F1F1F] uppercase tracking-widest border-b border-[#1F1F1F] block pb-1.5 mb-3 px-5" >
           Step {stepNumber} of 4
         </span>
 
