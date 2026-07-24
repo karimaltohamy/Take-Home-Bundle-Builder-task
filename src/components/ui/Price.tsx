@@ -29,7 +29,7 @@ export const Price: React.FC<PriceProps> = ({
   const isFree = price === 0;
 
   return (
-    <div className={cn('inline-flex items-center flex-row gap-1.5 xl:gap-0 xl:flex-col', className)} {...props}>
+    <div className={cn('inline-flex items-center flex-col md:flex-row gap-1.5 xl:gap-0 xl:flex-col', className)} {...props}>
       {/* Compare price (crossed out) */}
       {compareAtPrice !== undefined && compareAtPrice !== null && (
         <span
