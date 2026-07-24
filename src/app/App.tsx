@@ -25,7 +25,7 @@ export const App: React.FC = () => {
           </div>
 
           {/* Right Side: Live Review Panel Sidebar */}
-          <div className="w-full xl:w-[30%] z-10 transition-all duration-300">
+          <div className="w-full xl:w-[30%] z-10 transition-all duration-300 sticky top-2">
             <ReviewPanel />
           </div>
         </div>

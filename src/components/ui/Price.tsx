@@ -36,6 +36,7 @@ export const Price: React.FC<PriceProps> = ({
           className={cn(
             'text-red-400 line-through text-md font-thin leading-2',
             size === 'sm' && 'text-sm',
+            size === 'md' && 'text-md',
             size === 'lg' && 'text-lg',
             compareClassName
           )}

@@ -78,7 +78,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
       {/* Info Section */}
       <div className="flex-grow flex flex-col">
         {/* Title */}
-        <Typography variant="h3" className="font-bold text-slate-800 line-clamp-1 mb-1">
+        <Typography variant="h3" className="font-bold text-slate-800 leading-5! mb-1">
           {product.title}
         </Typography>
 
@@ -136,6 +136,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
               compareAtPrice={product.compareAtPrice}
               isMonthly={product.category === 'plan'}
               size={product.category === 'plan' ? "sm" : "lg"}
+              compareClassName='text-md!'
             />
           </div>
 

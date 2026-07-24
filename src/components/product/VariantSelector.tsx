@@ -56,7 +56,7 @@ export const VariantSelector: React.FC<VariantSelectorProps> = ({
               'flex items-center gap-0.5 px-1.5 py-0.5 text-[11px] rounded-sm border transition-all cursor-pointer select-none',
               isActive
                 ? 'border-green-500 bg-green-50 shadow-sm'
-                : 'border-[#FFFFFF] bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50'
+                : 'border-[#CCCCCC] bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50'
             )}
           >
             {variantSrc && (
